@@ -16,6 +16,7 @@ module.exports = {
         buttonSecondaryBorder: "#D0D5DD",
         buttonSecondaryColorBorder: "#D6BBFB",
         borderPrimary: "#D0D5DD",
+        buttonSecondaryColorText: "#6941C6",
       },
     },
   },
