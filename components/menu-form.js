@@ -25,7 +25,7 @@ export default function MenuForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full p-6 bg-bgPrimary border border-borderPrimary rounded-lg"
+      className="p-6 my-6 mx-4 bg-bgPrimary border border-borderPrimary rounded-lg"
     >
       <div className="flex flex-wrap items-start">
         <div className="flex-auto">
