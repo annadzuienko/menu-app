@@ -1,7 +1,9 @@
+import MenuEmptyState from "@/components/menu-empty-state";
+
 export default function Home() {
   return (
     <main>
-      <h1>Menu</h1>
+      <MenuEmptyState />
     </main>
   );
 }
