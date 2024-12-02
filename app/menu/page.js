@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
 import MenuForm from "@/components/menu-form";
 import MenuList from "@/components/menu-list";
 import {
@@ -26,7 +27,7 @@ export default function Menu() {
 
       const newMenu = {
         ...menu,
-        id: Date.now().toString(),
+        id: uuidv4(),
       };
 
       setMenuList((prevMenus) =>
