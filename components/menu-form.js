@@ -1,43 +1,48 @@
 "use client";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 import Image from "next/image";
 import trash from "@/public/trash.svg";
 import search from "@/public/search.svg";
 
-export default function MenuForm() {
+export default function MenuForm({
+  onAddMenu,
+  onDeleteMenu,
+  onCancelMenu,
+  defaultValues = { id: "", text: "", link: "", children: [] },
+}) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({ defaultValues });
 
-  const onSubmit = (formData) => {
-    const menu = {
-      id: Math.random(),
-      ...formData,
-    };
-    console.log(menu);
+  function onSubmit(menu) {
+    onAddMenu(menu);
     reset();
-  };
+  }
+
+  function onDelete() {
+    onDeleteMenu(defaultValues.id);
+    reset();
+  }
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="p-6 my-6 mx-4 bg-bgPrimary border border-borderPrimary rounded-lg"
+      className={`p-4 bg-white border border-borderPrimary rounded-lg`}
     >
       <div className="flex flex-wrap items-start">
         <div className="flex-auto">
-          <div className="mb-4">
+          <div className="mb-2">
             <label
-              htmlFor="name"
+              htmlFor="text"
               className="block text-sm font-medium text-textSecondary mb-2"
             >
               Nazwa
             </label>
             <input
-              id="name"
+              id="text"
               {...register("text", {
                 required: "To pole jest wymagane",
                 minLength: {
@@ -62,7 +67,7 @@ export default function MenuForm() {
             </label>
             <Image
               src={search}
-              alt="Usuń menu"
+              alt="Url"
               className="absolute left-3 top-12 transform -translate-y-1/2 w-5 h-5"
             />
             <input
@@ -86,7 +91,9 @@ export default function MenuForm() {
           <div className="flex flex-wrap justify-left gap-y-2.5 gap-x-3.5">
             <button
               type="button"
-              onClick={() => reset()}
+              onClick={() => {
+                onCancelMenu(), reset();
+              }}
               className="px-4 py-2 text-sm font-medium text-textSecondary bg-white border border-buttonSecondaryBorder rounded-lg hover:bg-gray-100"
             >
               Anuluj
@@ -99,9 +106,12 @@ export default function MenuForm() {
             </button>
           </div>
         </div>
-        <Link href="/">
-          <Image src={trash} alt="Usuń menu" className="m-2 cursor-pointer" />
-        </Link>
+        <Image
+          src={trash}
+          onClick={onDelete}
+          alt="Usuń menu"
+          className="m-2 cursor-pointer"
+        />
       </div>
     </form>
   );
